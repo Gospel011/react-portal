@@ -1,34 +1,30 @@
-import { useState } from "react";
-import Modal from "./components/Modal";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import ProfilesPage from "./pages/ProfilesPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import "./styles/index.css";
+import ProfilePage from "./pages/ProfilePage";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomePage />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/profiles",
+    element: <ProfilesPage />,
+    children: [
+      {
+        path: "/profiles/:profileId",
+        element: <ProfilePage />,
+      },
+    ],
+  },
+]);
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <>
-      <div>
-        <button
-          onClick={() => setIsOpen((val) => !val)}
-          style={{ fontSize: "1.5rem" }}
-        >
-          Open modal
-        </button>
-
-        <Modal open={isOpen} close={() => setIsOpen(false)}>
-          Hello Divine
-        </Modal>
-      </div>
-      <div
-        style={{
-          backgroundColor: "red",
-          padding: "1.5rem",
-          fontSize: "2rem",
-        }}
-      >
-        Other Content
-      </div>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

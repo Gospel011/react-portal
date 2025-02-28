@@ -1,0 +1,8 @@
+@import 'tailwindcss';
+
+
+@layer components {
+   .active {
+    @apply text-orange-400
+   }
+}
